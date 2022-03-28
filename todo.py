@@ -1,12 +1,18 @@
 import telebot
 from telebot import types
+
 # токен бота
 bot = telebot.TeleBot('5104497543:AAEs0LWgdR7L4Ji48tjXIYiNDEAEjBhG7Cg')
+# count_button, для того чтобы обрабатывать только один выбор и только один раз
+count_button = 0
+
 
 # функция для вступления
 @bot.message_handler(content_types=['text'])
 def start(message):
     if message.text == '/start':
+        global count_button
+        count_button = 0
         bot.send_message(message.from_user.id, "Приветствую! Вы попали в квест-лабиринт. "
                                                "Используя бота, вы можете погрузиться в "
                                                "мир удивительных историй и загадок."
@@ -32,14 +38,21 @@ def start(message):
                                                'Пожалуйста нажимайте только на те кнопки,'
                                                ' которые вам выводит приложение')
 
+
 # обработка выбора пользователя
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
     # call.data это callback_data, которую мы указали при объявлении кнопки
-    if call.data == "yes":
-        bot.send_message(call.message.chat.id, 'Поехали')
-    elif call.data == "no":
-        bot.send_message(call.message.chat.id, 'Пока-пока! Заглядывайте к нам еще)')
-    bot.send_message(call.message.chat.id, reply_markup=telebot.types.ReplyKeyboardRemove())
+    global count_button
+    if call.data == "yes" and count_button == 0:
+        count_button += 1
+        bot.send_message(call.message.chat.id, 'Поехали',
+                         reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
+
+    if call.data == "no" and count_button == 0:
+        count_button += 1
+        bot.send_message(call.message.chat.id, 'Пока-пока! Заглядывайте к нам еще)',
+                         reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
+
 
 bot.polling()
