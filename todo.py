@@ -11,15 +11,18 @@ def start(message):
                                                "Используя бота, вы можете погрузиться в "
                                                "мир удивительных историй и загадок."
                                                " От каждого вашего выбора, зависит судьба персонажа и исход игры.")
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         # клавиатура
         keyboard = types.InlineKeyboardMarkup()
         # кнопка «Да»
         key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')
         # добавление кнопки в клавиатуру
         keyboard.add(key_yes)
+        markup.add(key_yes)
         # кнопка «Нет»
         key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
         keyboard.add(key_no)
+        markup.add(key_no)
         question = "Хотите начать?"
         bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
     if message.text != '/help' and message.text != '/start':
@@ -37,4 +40,6 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id, 'Поехали')
     elif call.data == "no":
         bot.send_message(call.message.chat.id, 'Пока-пока! Заглядывайте к нам еще)')
-bot.polling(none_stop=True, interval=0)
+    bot.send_message(call.message.chat.id, reply_markup=telebot.types.ReplyKeyboardRemove())
+
+bot.polling()
