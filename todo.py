@@ -1,3 +1,16 @@
+import telebot
+from telebot import types
+
+# токен бота
+bot = telebot.TeleBot('XXXXXXX')
+# count_button, для того чтобы обрабатывать только один выбор и только один раз
+count_button = 0
+
+
+# функция для вступления
+@bot.message_handler(content_types=['text'])
+def start(message):
+    global count_button
     count_button = 0
     if message.text == '/start':
         bot.send_message(message.from_user.id, "Приветствую! Вы попали в квест-лабиринт. "
