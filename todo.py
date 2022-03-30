@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 
 # токен бота
-bot = telebot.TeleBot('XXXXXXX')
+bot = telebot.TeleBot('5104497543:AAEs0LWgdR7L4Ji48tjXIYiNDEAEjBhG7Cg')
 # count_button, для того чтобы обрабатывать только один выбор и только один раз
 count_button = 0
 
@@ -10,9 +10,9 @@ count_button = 0
 # функция для вступления
 @bot.message_handler(content_types=['text'])
 def start(message):
-    global count_button
-    count_button = 0
     if message.text == '/start':
+        global count_button
+        count_button = 0
         bot.send_message(message.from_user.id, "Приветствую! Вы попали в квест-лабиринт. "
                                                "Используя бота, вы можете погрузиться в "
                                                "мир удивительных историй и загадок."
