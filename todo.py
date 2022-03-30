@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 
 # токен бота
-bot = telebot.TeleBot('5104497543:AAEs0LWgdR7L4Ji48tjXIYiNDEAEjBhG7Cg')
+bot = telebot.TeleBot('ЧЧЧЧЧ')
 # count_button, для того чтобы обрабатывать только один выбор и только один раз
 count_button = 0
 
