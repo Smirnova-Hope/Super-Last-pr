@@ -46,6 +46,8 @@ def start(message):
 def callback_worker(call):
     # call.data это callback_data, которую мы указали при объявлении кнопки
     global count_button
+    # рандомная id персонажа
+    rand_id = randint(1, 10)
     if call.data == "yes" and count_button == 0:
         count_button += 1
         bot.send_message(call.message.chat.id, 'Поехали',
@@ -57,8 +59,6 @@ def callback_worker(call):
         count_button += 1
         bot.send_message(call.message.chat.id, 'Пока-пока! Заглядывайте к нам еще)',
                          reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
-    # рандомная id персонажа
-    rand_id = randint(1, 10)
     # выбор будущего
     if call.data == "y" and count_button == 1:
         count_button += 1
