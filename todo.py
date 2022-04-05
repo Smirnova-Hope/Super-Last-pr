@@ -75,8 +75,30 @@ def callback_worker(call):
     Ваша удача - {cur.execute(f'SELECT luck FROM user WHERE id={rand_id}').fetchall()[0][0]}, 
     Ваш авторитет- {cur.execute(f'SELECT authority FROM user WHERE id={rand_id}').fetchall()[0][0]}, 
     Ваше здоровье - {cur.execute(f'SELECT health FROM user WHERE id={rand_id}').fetchall()[0][0]}.''')
+    # прошлое
     if call.data == "n" and count_button == 1:
         count_button += 1
+        # подключаемся к бд
+        con = sqlite3.connect("base 3.db")
+        cur = con.cursor()
+        bot.send_message(call.message.chat.id, '''Лучи палящего солнца неприятно светят вам в глаза.
+        Шум голосов становится все громче. Вы жмуритесь сильнее, в попытках вернуться в сладкое царство морфея.
+        Но тщетно. Злобная старуха Сафо - хозяйка гостиницы, под чьими окнами вы уснули- окатывает вас ледяной водой. 
+        Не успев, прийти в себя, вы сталкиваетесь с возмущением хозяйки. "А ка зараза ко мне повадилась!
+        Проку от тебя ноль. Запомни уже, я тебя давно уволила. Не смей, больше сюда приходить, только портишь вид
+        моему заведению!!! В следующий раз вылью кипящую смолу!!!" - прокричала вам карга Сафо. Мда...
+        Судьба у вас не завидная. Хотя кому щас легко? На дворе 675 г. до н.э., Греция, остров Крит. Сильная засуха,
+        голод, нехватка работы из-за большого количество захваченных рабов. Конечно же, им то платить не надо: 
+        дал кувшин воды, да яблок штук 7 и ходят себе счастливые.... Ну да ладно, начался новый день, 
+        а значит надо снова отправляться на поиски новый работы!. 
+        ''')
+        # из бд выводим имя и остальные параметры, соответствующие id
+        bot.send_message(call.message.chat.id, f''' Ваша краткая биография.
+            Имя - {(cur.execute(f'SELECT name FROM user WHERE id={rand_id}').fetchall())[0][0]}, 
+            Уровень удачи - {cur.execute(f'SELECT luck FROM user WHERE id={rand_id}').fetchall()[0][0]}, 
+            Авторитет- {cur.execute(f'SELECT authority FROM user WHERE id={rand_id}').fetchall()[0][0]}, 
+            Уровень здоровья - {cur.execute(f'SELECT health FROM user WHERE id={rand_id}').fetchall()[0][0]}.''')
+
 
 
 def time(message):
