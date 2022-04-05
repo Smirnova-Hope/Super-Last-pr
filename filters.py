@@ -9,7 +9,7 @@ bot = telebot.TeleBot('5211894904:AAFbuovu8W1VefPHBOffusDFwSppYqjB_0Q')
 count_button = 0
 rand_id = randint(1, 10)
 
-con = sqlite3.connect("base 3.db")
+con = sqlite3.connect("base3.db")
 cur = con.cursor()
 
 # функция для вступления
@@ -71,9 +71,10 @@ def callback_worker(call):
 жить на эту планету из-за разрушения ядра планеты Земля. Время на планете «NL-31» течет в 2 раза
 медленнее земного, а вместо Солнца – звезда «Мабу».''')
         bot.send_message(call.message.chat.id, f'''Сегодня день Вашего рождения. 
-Ваше имя - {cur.execute(f'SELECT name FROM user WHERE id={rand_id}')}, Ваша удача - {cur.execute(f'SELECT luck FROM user WHERE id={rand_id}')}, 
-Ваш авторитет- {cur.execute(f'SELECT authority FROM user WHERE id={rand_id}')}, 
-Ваше здоровье - {cur.execute(f'SELECT health FROM user WHERE id={rand_id}')}''')
+Ваше имя - {cur.execute(f'SELECT name FROM user WHERE id={rand_id}').fetchall()}, 
+Ваша удача - {cur.execute(f'SELECT luck FROM user WHERE id={rand_id}').fetchall()}, 
+Ваш авторитет- {cur.execute(f'SELECT authority FROM user WHERE id={rand_id}').fetchall()}, 
+Ваше здоровье - {cur.execute(f'SELECT health FROM user WHERE id={rand_id}').fetchall()}''')
 
 
 def time(message):
