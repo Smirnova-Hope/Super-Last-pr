@@ -7,7 +7,9 @@ from random import randint
 bot = telebot.TeleBot('5104497543:AAEs0LWgdR7L4Ji48tjXIYiNDEAEjBhG7Cg')
 # count_button, для того чтобы обрабатывать только один выбор и только один раз
 count_button = 0
-rand_id = randint(1, 10)
+
+
+
 # функция для вступления
 @bot.message_handler(content_types=['text'])
 def start(message):
@@ -44,7 +46,6 @@ def start(message):
 def callback_worker(call):
     # call.data это callback_data, которую мы указали при объявлении кнопки
     global count_button
-    global rand_id
     if call.data == "yes" and count_button == 0:
         count_button += 1
         bot.send_message(call.message.chat.id, 'Поехали',
@@ -56,16 +57,19 @@ def callback_worker(call):
         count_button += 1
         bot.send_message(call.message.chat.id, 'Пока-пока! Заглядывайте к нам еще)',
                          reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
-
+    # рандомная id персонажа
+    rand_id = randint(1, 10)
+    # выбор будущего
     if call.data == "y" and count_button == 1:
+        count_button += 1
+        # подключаемся к бд
         con = sqlite3.connect("base 3.db")
         cur = con.cursor()
-
-        count_button += 1
         bot.send_message(call.message.chat.id, '''3100 год от Рождества Христово. Галактика Андромеды.
     Планета «NL-31» - ближайшая планета с климатом пригодным для жизни. Человеческая раса перебралась
     жить на эту планету из-за разрушения ядра планеты Земля. Время на планете «NL-31» течет в 2 раза
     медленнее земного, а вместо Солнца – звезда «Мабу».''')
+        # из бд выводим имя и остальные параметры, соответствующие id
         bot.send_message(call.message.chat.id, f'''Сегодня день Вашего рождения.
     Ваше имя - {(cur.execute(f'SELECT name FROM user WHERE id={rand_id}').fetchall())[0][0]}, 
     Ваша удача - {cur.execute(f'SELECT luck FROM user WHERE id={rand_id}').fetchall()[0][0]}, 
@@ -73,6 +77,7 @@ def callback_worker(call):
     Ваше здоровье - {cur.execute(f'SELECT health FROM user WHERE id={rand_id}').fetchall()[0][0]}.''')
     if call.data == "n" and count_button == 1:
         count_button += 1
+
 
 def time(message):
     global count_button
