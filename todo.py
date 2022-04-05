@@ -1,11 +1,16 @@
 import telebot
 from telebot import types
+import sqlite3
+from random import randint
 
 # токен бота
-bot = telebot.TeleBot('ЧЧЧЧЧ')
+bot = telebot.TeleBot('5104497543:AAEs0LWgdR7L4Ji48tjXIYiNDEAEjBhG7Cg')
 # count_button, для того чтобы обрабатывать только один выбор и только один раз
 count_button = 0
+rand_id = randint(1, 10)
 
+con = sqlite3.connect("base 3.db")
+cur = con.cursor()
 
 # функция для вступления
 @bot.message_handler(content_types=['text'])
@@ -55,8 +60,22 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id, 'Пока-пока! Заглядывайте к нам еще)',
                          reply_markup=types.ReplyKeyboardRemove(), parse_mode='Markdown')
 
+    if call.data == "y" and count_button == 1:
+        count_button += 1
+        bot.send_message(call.message.chat.id, '''3100 год от Рождества Христово. Галактика Андромеды.
+    Планета «NL-31» - ближайшая планета с климатом пригодным для жизни. Человеческая раса перебралась
+    жить на эту планету из-за разрушения ядра планеты Земля. Время на планете «NL-31» течет в 2 раза
+    медленнее земного, а вместо Солнца – звезда «Мабу».''')
+        bot.send_message(call.message.chat.id, f'''Сегодня день Вашего рождения. 
+    Ваше имя - {cur.execute(f'SELECT name FROM user WHERE id={rand_id}')}, Ваша удача - {cur.execute(f'SELECT luck FROM user WHERE id={rand_id}')}, 
+    Ваш авторитет- {cur.execute(f'SELECT authority FROM user WHERE id={rand_id}')}, 
+    Ваше здоровье - {cur.execute(f'SELECT health FROM user WHERE id={rand_id}')}''')
+    if call.data == "n" and count_button == 1:
+        count_button += 1
 
 def time(message):
+    global count_button
+    count_button == 1
     keyboard = types.InlineKeyboardMarkup()
     # кнопка «Будущее»
     key_future = types.InlineKeyboardButton(text='Будущее!', callback_data='y')
