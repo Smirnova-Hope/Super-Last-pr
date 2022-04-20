@@ -45,7 +45,7 @@ friends = 0
                                     'venue', 'forward_from_chat', 'forward_from_message_id', 'forward_signature', 'forward_date'
                                     'is_automatic_forward', 'reply_to_message', 'animation'])
 def fefefe(message):
-    bot.send_message(message.from_user.id, 'не надо дядя')
+    bot.send_message(message.from_user.id, 'Некорректные действия. Используйте бота по назначению!')
 
 
 # функция для вступления
@@ -134,7 +134,10 @@ def start(message):
         count_button += 1
         lasted(message)
     if message.text == '/rezult' and count_button == 13:
-        pass
+        bot.send_message(message.from_user.id, 'Спасибо за прохождение наших квестов. Ждем вас еще :)'
+                                               ' Просто хорошая песня, для настроения "Bones" Imagine Dragons.')
+        audio = open('Bones.mp3', 'rb')
+        bot.send_audio(message.chat.id, audio)
     if message.text != '/help' and message.text != '/start' and message.text != '/futCard' and message.text != '/ready'\
             and message.text != '/school' and message.text != '/me'\
             and message.text != '/protest' and message.text != '/save' and message.text != '/continue'\
