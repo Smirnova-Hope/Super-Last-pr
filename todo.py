@@ -13,19 +13,29 @@ rand_id1 = randint(1, 10)
 
 # случайное id для прошлого
 rand_id2 = randint(1, 10)
-
-con = sqlite3.connect("base 3.db")
-cur = con.cursor()
-# запросы нужных переменных для кто убил Марка из бд
-name1 = (cur.execute(f'SELECT name FROM user WHERE id={rand_id1}').fetchall()[0][0])
-luck1 = (cur.execute(f'SELECT luck FROM user WHERE id={rand_id1}').fetchall()[0][0])
-authority1 = (cur.execute(f'SELECT authority FROM user WHERE id={rand_id1}').fetchall()[0][0])
-health1 = (cur.execute(f'SELECT health FROM user WHERE id={rand_id1}').fetchall()[0][0])
-# запросы нужных переменных для прошлого из бд
-name2 = (cur.execute(f'SELECT name FROM user WHERE id={rand_id2}').fetchall()[0][0])
-luck2 = (cur.execute(f'SELECT luck FROM user WHERE id={rand_id2}').fetchall()[0][0])
-authority2 = (cur.execute(f'SELECT authority FROM user WHERE id={rand_id2}').fetchall()[0][0])
-health2 = (cur.execute(f'SELECT health FROM user WHERE id={rand_id2}').fetchall()[0][0])
+try:
+    con = sqlite3.connect("base 3.db")
+    cur = con.cursor()
+    # запросы нужных переменных для кто убил Марка из бд
+    name1 = (cur.execute(f'SELECT name FROM user WHERE id={rand_id1}').fetchall()[0][0])
+    luck1 = (cur.execute(f'SELECT luck FROM user WHERE id={rand_id1}').fetchall()[0][0])
+    authority1 = (cur.execute(f'SELECT authority FROM user WHERE id={rand_id1}').fetchall()[0][0])
+    health1 = (cur.execute(f'SELECT health FROM user WHERE id={rand_id1}').fetchall()[0][0])
+    # запросы нужных переменных для прошлого из бд
+    name2 = (cur.execute(f'SELECT name FROM user WHERE id={rand_id2}').fetchall()[0][0])
+    luck2 = (cur.execute(f'SELECT luck FROM user WHERE id={rand_id2}').fetchall()[0][0])
+    authority2 = (cur.execute(f'SELECT authority FROM user WHERE id={rand_id2}').fetchall()[0][0])
+    health2 = (cur.execute(f'SELECT health FROM user WHERE id={rand_id2}').fetchall()[0][0])
+except:
+    name1 = 'Никита'
+    luck1 = 1
+    authority1 = 1
+    health1 = 4
+    # запросы нужных переменных для прошлого из бд
+    name2 = 'Бобрыня'
+    luck2 = 3
+    authority2 = 3
+    health2 = 5
 
 # наличие заточки
 weapon = 0
@@ -134,10 +144,13 @@ def start(message):
         count_button += 1
         lasted(message)
     if message.text == '/rezult' and count_button == 13:
-        bot.send_message(message.from_user.id, 'Спасибо за прохождение наших квестов. Ждем вас еще :)'
-                                               ' Просто хорошая песня, для настроения "Bones" Imagine Dragons.')
-        audio = open('Bones.mp3', 'rb')
-        bot.send_audio(message.chat.id, audio)
+        try:
+            bot.send_message(message.from_user.id, 'Спасибо за прохождение наших квестов. Ждем вас еще :)'
+                                                   ' Просто хорошая песня, для настроения "Bones" Imagine Dragons.')
+            audio = open('Bones.mp3', 'rb')
+            bot.send_audio(message.chat.id, audio)
+        except:
+            bot.send_message(message.from_user.id, 'Спасибо за прохождение наших квестов. Ждем вас еще :)')
     if message.text != '/help' and message.text != '/start' and message.text != '/futCard' and message.text != '/ready'\
             and message.text != '/school' and message.text != '/me'\
             and message.text != '/protest' and message.text != '/save' and message.text != '/continue'\
@@ -212,7 +225,10 @@ def callback_worker(call):
 Однако, по какой-то причине вам она не понравилась... 
 Продолжая бродить, вы замечаете попугайчика, который вывихнул 
 крыло и запутался в ветках дерева. Напишите /save''')
-        bot.send_photo(call.message.chat.id, open('parrot.jpg', 'rb'))
+    try:
+        bot.send_photo(call.message.chat.id, open('parot.jpg', 'rb'))
+    except:
+        pass
 
     # ПРОШЛОЕ, выбор спасти попугая
     if call.data == "save_parrot" and count_button == 2:
@@ -411,8 +427,7 @@ def callback_worker(call):
                                                    " вы решаете поднакопить денег и уехать далеко-далеко, на поиски"
                                                    " лучшей жизни. "
                                                    " ПОЗДРАВЛЯЕМ вы прошли эту историю и открыли одну из концовок !!!"
-                                                   "Хорошая или плохая эта концовка решать вам. Напишите /rezult "
-                                                   )
+                                                   "Хорошая или плохая эта концовка решать вам. Напишите /rezult")
         else:
             bot.send_message(call.message.chat.id, "Боги оценили ваш поступок. Правила есть правила, покинуть "
                                                    "комнату должен только один. Но правила существуют для того"
@@ -766,7 +781,10 @@ def into_maze_or_viktorina(call):
 - Ладно.. Когда заход?
 - Сегодня в 2:00
 - Ладно''')
-    bot.send_photo(call.message.chat.id, open('vent.png', 'rb'))
+    try:
+        bot.send_photo(call.message.chat.id, open('vent.png', 'rb'))
+    except:
+        pass
     bot.send_message(call.message.chat.id, '''- Это карта вентиляции. Тебе нужно допозти до этой комнаты.
 - Ок, сколько у меня времени?
 - Минут 20, не больше, иначе всем будет не очень весело.
