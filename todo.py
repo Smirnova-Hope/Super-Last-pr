@@ -418,8 +418,8 @@ def callback_worker(call):
                                                    "новой жизни.")
     if call.data == "die" and count_button == 12:
         count_button += 1
-        bot.send_message(call.message.chat.id, "Весьма опрометчивое решение. Вы слабее и медленнее Инея. "
-                                               " убивать и предавать вашего товарища. Иней тоже не желает этого.")
+        bot.send_message(call.message.chat.id, " Вы решили не убивать и не предавать вашего товарища."
+                                               " Иней тоже не желает этого.")
         if authority2 > 4:
             bot.send_message(call.message.chat.id, "Боги оценили ваш поступок. Они благосклонны к вам. С их помощью"
                                                    " вам вдвоем удалось выйти из лабиринта и покинуть остров."
