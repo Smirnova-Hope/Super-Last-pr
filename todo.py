@@ -785,7 +785,7 @@ def into_maze_or_viktorina(call):
 - Сегодня в 2:00
 - Ладно''')
     try:
-        bot.send_photo(call.message.chat.id, open('parrot.jpg', 'rb'))
+        bot.send_photo(call.message.chat.id, open('vent.png', 'rb'))
     except:
         pass
     bot.send_message(call.message.chat.id, '''- Это карта вентиляции. Тебе нужно допозти до этой комнаты.
