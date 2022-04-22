@@ -13,6 +13,7 @@ rand_id1 = randint(1, 10)
 
 # случайное id для прошлого
 rand_id2 = randint(1, 10)
+
 try:
     con = sqlite3.connect("base 3.db")
     cur = con.cursor()
@@ -37,6 +38,7 @@ except:
     authority2 = 3
     health2 = 5
 
+
 # наличие заточки
 weapon = 0
 
@@ -55,7 +57,7 @@ friends = 0
                                     'venue', 'forward_from_chat', 'forward_from_message_id', 'forward_signature', 'forward_date'
                                     'is_automatic_forward', 'reply_to_message', 'animation'])
 def fefefe(message):
-    bot.send_message(message.from_user.id, 'Некорректные действия. Используйте бота по назначению!')
+    bot.send_message(message.from_user.id, 'не надо дядя')
 
 
 # функция для вступления
@@ -225,10 +227,10 @@ def callback_worker(call):
 Однако, по какой-то причине вам она не понравилась... 
 Продолжая бродить, вы замечаете попугайчика, который вывихнул 
 крыло и запутался в ветках дерева. Напишите /save''')
-    try:
-        bot.send_photo(call.message.chat.id, open('parot.jpg', 'rb'))
-    except:
-        pass
+        try:
+            bot.send_photo(call.message.chat.id, open('parrot.jpg', 'rb'))
+        except:
+            pass
 
     # ПРОШЛОЕ, выбор спасти попугая
     if call.data == "save_parrot" and count_button == 2:
@@ -427,7 +429,8 @@ def callback_worker(call):
                                                    " вы решаете поднакопить денег и уехать далеко-далеко, на поиски"
                                                    " лучшей жизни. "
                                                    " ПОЗДРАВЛЯЕМ вы прошли эту историю и открыли одну из концовок !!!"
-                                                   "Хорошая или плохая эта концовка решать вам. Напишите /rezult")
+                                                   "Хорошая или плохая эта концовка решать вам. Напишите /rezult"
+                                                   )
         else:
             bot.send_message(call.message.chat.id, "Боги оценили ваш поступок. Правила есть правила, покинуть "
                                                    "комнату должен только один. Но правила существуют для того"
@@ -782,7 +785,7 @@ def into_maze_or_viktorina(call):
 - Сегодня в 2:00
 - Ладно''')
     try:
-        bot.send_photo(call.message.chat.id, open('vent.png', 'rb'))
+        bot.send_photo(call.message.chat.id, open('parrot.jpg', 'rb'))
     except:
         pass
     bot.send_message(call.message.chat.id, '''- Это карта вентиляции. Тебе нужно допозти до этой комнаты.
@@ -1045,7 +1048,7 @@ def ask(message):
     # добавление кнопки в клавиатуру
     keyboard.add(key_future)
     # кнопка «Прошлое»
-    key_ancient = types.InlineKeyboardButton(text='Остров Мао', callback_data='past')
+    key_ancient = types.InlineKeyboardButton(text='Прошлое!', callback_data='past')
     keyboard.add(key_ancient)
     question = "Сетинг квеста:"
     bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
