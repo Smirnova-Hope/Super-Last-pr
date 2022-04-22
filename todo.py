@@ -57,7 +57,7 @@ friends = 0
                                     'venue', 'forward_from_chat', 'forward_from_message_id', 'forward_signature', 'forward_date'
                                     'is_automatic_forward', 'reply_to_message', 'animation'])
 def fefefe(message):
-    bot.send_message(message.from_user.id, 'не надо дядя')
+    bot.send_message(message.from_user.id, 'не надо, дядя!')
 
 
 # функция для вступления
@@ -1048,7 +1048,7 @@ def ask(message):
     # добавление кнопки в клавиатуру
     keyboard.add(key_future)
     # кнопка «Прошлое»
-    key_ancient = types.InlineKeyboardButton(text='Прошлое!', callback_data='past')
+    key_ancient = types.InlineKeyboardButton(text='Остров Мао', callback_data='past')
     keyboard.add(key_ancient)
     question = "Сетинг квеста:"
     bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
